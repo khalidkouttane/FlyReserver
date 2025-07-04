@@ -2,6 +2,7 @@
 
 FlyReserver est une application de réservation de vols construite selon une architecture **microservices** avec Spring Boot, Eureka, API Gateway et Spring Cloud Config.
 
+![archi-HA.jpg](archi-HA.jpg)
 ## 📚 Description du projet
 
 L'application permet :
@@ -15,7 +16,8 @@ Chaque fonctionnalité est implémentée dans un microservice **indépendant** c
 
 ---
 
-## ⚙️ Architecture technique
+## ⚙️ Architecture Poc 
+![img.png](img.png)
 
 ### 🧩 Microservices :
 
@@ -54,11 +56,20 @@ Chaque fonctionnalité est implémentée dans un microservice **indépendant** c
 - (Optionnel) Docker et Docker Compose
 
 ### Étapes
+1. **Démarrer `Kafka`**
+```bash
 
-1. **Démarrer `config-server`**
+.\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
+
+# Dans un autre terminal exécute la commande suivante 
+
+.\bin\windows\kafka-server-start.bat .\config\server.properties
+
+```
+2. **Démarrer `config-server`**
 2. **Démarrer `eureka-server`**
 3. **Démarrer tous les microservices**
 4. **Lancer `api-gateway`**
-5. Accéder à l'application via : `http://localhost:8080`
+5. Accéder aux services via : `http://localhost:8080/service-name/`
 
 ---
