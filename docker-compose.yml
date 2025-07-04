@@ -1,0 +1,99 @@
+version: '3.8'
+
+services:
+  config-server:
+    container_name: config-server
+    build:
+      context: ./config-server
+      dockerfile: Dockerfile
+    image: config-server:1.0
+    ports:
+      - "9090:9090"
+
+  eureka-server:
+    container_name: eureka-server
+    build:
+      context: ./eureka-server
+      dockerfile: Dockerfile
+    image: eureka-server:1.0
+    ports:
+      - "8761:8761"
+    depends_on:
+      - config-server
+
+  api-gateway:
+    container_name: api-gateway
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    image: api-gateway:1.0
+    ports:
+      - "8080:8080"
+    depends_on:
+      - config-server
+
+  passenger-service:
+    container_name: passenger-service
+    build:
+      context: ./passenger-service
+      dockerfile: Dockerfile
+    image: passenger-service:1.0
+    ports:
+      - "8083:8083"
+    depends_on:
+      - config-server
+
+  payment-service:
+    container_name: payment-service
+    build:
+      context: ./payment-service
+      dockerfile: Dockerfile
+    image: payment-service:1.0
+    ports:
+      - "8086:8086"
+    depends_on:
+      - config-server
+
+  search-service:
+    container_name: search-service
+    build:
+      context: ./search-service
+      dockerfile: Dockerfile
+    image: search-service:1.0
+    ports:
+      - "8081:8081"
+    depends_on:
+      - config-server
+
+  booking-service:
+    container_name: booking-service
+    build:
+      context: ./booking-service
+      dockerfile: Dockerfile
+    image: booking-service:1.0
+    ports:
+      - "8082:8082"
+    depends_on:
+      - config-server
+
+  checkin-service:
+    container_name: checkin-service
+    build:
+      context: ./checkin-service
+      dockerfile: Dockerfile
+    image: checkin-service:1.0
+    ports:
+      - "8084:8084"
+    depends_on:
+      - config-server
+
+  notification-service:
+    container_name: notification-service
+    build:
+      context: ./notification-service
+      dockerfile: Dockerfile
+    image: notification-service:1.0
+    ports:
+      - "8085:8085"
+    depends_on:
+      - config-server
